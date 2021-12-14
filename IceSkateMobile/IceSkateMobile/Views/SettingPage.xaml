@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:IceSkateMobile.ViewModels"
+             xmlns:dxe="http://schemas.devexpress.com/xamarin/2014/forms/editors"
+             x:Class="IceSkateMobile.Views.SettingPage"
+             Title="Setting">
+    <ContentPage.BindingContext>
+        <viewmodels:SettingViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Spacing="10" Padding="20">
+                <StackLayout>
+                    <StackLayout HorizontalOptions="FillAndExpand" >
+                        <StackLayout Orientation="Vertical">
+                            <dxe:SimpleButton VerticalOptions="Center" 
+                                              FontSize="Medium"
+                                              Text="Logout" 
+                                              Command="{Binding LogoutCommand}"/>
+                            <Label Text="v0.01" HorizontalOptions="Center" />
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

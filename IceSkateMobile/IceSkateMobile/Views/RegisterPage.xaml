@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dxe="http://schemas.devexpress.com/xamarin/2014/forms/editors"
+             xmlns:viewmodels="clr-namespace:IceSkateMobile.ViewModels"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:converters="clr-namespace:IceSkateMobile.Converters"
+             mc:Ignorable="d"
+             x:Class="IceSkateMobile.Views.RegisterPage"
+             x:DataType="viewmodels:RegisterViewModel">
+    <ContentPage.BindingContext>
+        <viewmodels:RegisterViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <converters:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter" />
+        <converters:InvertBooleanConverter x:Key="InvertBooleanConverter" />
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView Padding="10,30,10,30">
+            <StackLayout VerticalOptions="Center"
+                     HorizontalOptions="FillAndExpand">
+                <Label HorizontalOptions="CenterAndExpand" 
+                   Text="Register" 
+                   FontSize="Title" 
+                   FontAttributes="Bold"/>
+                <dxe:TextEdit LabelText="Phone number"  
+                          Keyboard="Telephone"
+                          Text="{Binding Phonenumber.Value}"
+                          HasError="{Binding Phonenumber.IsValid, Converter={StaticResource InvertBooleanConverter}}"
+                          ErrorText="{Binding Phonenumber.Errors, Converter={StaticResource FirstValidationErrorConverter}}" 
+                          LabelFontSize="Medium"
+                          BottomTextFontSize="Medium"
+                          StartIcon="icon_phone">
+                    <dxe:TextEdit.Behaviors>
+                        <xct:EventToCommandBehavior
+							EventName="Unfocused"
+							Command="{Binding ValidatePhonenumberCommand}" />
+                        <xct:EventToCommandBehavior
+							EventName="TextChanged"
+							Command="{Binding ValidatePhonenumberCommand}" />
+                    </dxe:TextEdit.Behaviors>
+                </dxe:TextEdit>
+                <dxe:TextEdit LabelText="Email"  
+                          Keyboard="Email"
+                          Text="{Binding Email.Value}"
+                          HasError="{Binding Email.IsValid, Converter={StaticResource InvertBooleanConverter}}"
+                          ErrorText="{Binding Email.Errors, Converter={StaticResource FirstValidationErrorConverter}}" 
+                          LabelFontSize="Medium"
+                          BottomTextFontSize="Medium"
+                          StartIcon="icon_email">
+                    <dxe:TextEdit.Behaviors>
+                        <xct:EventToCommandBehavior
+							EventName="Unfocused"
+							Command="{Binding ValidateEmailCommand}" />
+                        <xct:EventToCommandBehavior
+							EventName="TextChanged"
+							Command="{Binding ValidateEmailCommand}" />
+                    </dxe:TextEdit.Behaviors>
+                </dxe:TextEdit>
+                <dxe:TextEdit LabelText="Name"  
+                          Text="{Binding Name.Value}"
+                          HasError="{Binding Name.IsValid, Converter={StaticResource InvertBooleanConverter}}"
+                          ErrorText="{Binding Name.Errors, Converter={StaticResource FirstValidationErrorConverter}}" 
+                          LabelFontSize="Medium"
+                          BottomTextFontSize="Medium"
+                          StartIcon="icon_user">
+                    <dxe:TextEdit.Behaviors>
+                        <xct:EventToCommandBehavior
+							EventName="Unfocused"
+							Command="{Binding ValidateNameCommand}" />
+                        <xct:EventToCommandBehavior
+							EventName="TextChanged"
+							Command="{Binding ValidateNameCommand}" />
+                    </dxe:TextEdit.Behaviors>
+                </dxe:TextEdit>
+                <dxe:PasswordEdit LabelText="Password"  
+                              LabelFontSize="Medium"
+                              Text="{Binding Password.Value}"
+                              HasError="{Binding Password.IsValid, Converter={StaticResource InvertBooleanConverter}}"
+                              ErrorText="{Binding Password.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                              BottomTextFontSize="Medium"
+                              StartIcon="icon_password">
+                    <dxe:PasswordEdit.Behaviors>
+                        <xct:EventToCommandBehavior
+							EventName="Unfocused"
+							Command="{Binding ValidatePasswordCommand}" />
+                        <xct:EventToCommandBehavior
+							EventName="TextChanged"
+							Command="{Binding ValidatePasswordCommand}" />
+                    </dxe:PasswordEdit.Behaviors>
+                </dxe:PasswordEdit>
+                <dxe:PasswordEdit LabelText="Confirm Password"  
+                              LabelFontSize="Medium"
+                              Text="{Binding ConfirmPassword.Value}"
+                              HasError="{Binding ConfirmPassword.IsValid, Converter={StaticResource InvertBooleanConverter}}"
+                              ErrorText="{Binding ConfirmPassword.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                              BottomTextFontSize="Medium"
+                              StartIcon="icon_password">
+                    <dxe:PasswordEdit.Behaviors>
+                        <xct:EventToCommandBehavior
+							EventName="Unfocused"
+							Command="{Binding ValidateConfirmPasswordCommand}" />
+                        <xct:EventToCommandBehavior
+							EventName="TextChanged"
+							Command="{Binding ValidateConfirmPasswordCommand}" />
+                    </dxe:PasswordEdit.Behaviors>
+                </dxe:PasswordEdit>
+                <dxe:SimpleButton VerticalOptions="Center"
+                              FontSize="Medium"
+                              Text="Register" 
+                              Command="{Binding RegisterCommand}"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

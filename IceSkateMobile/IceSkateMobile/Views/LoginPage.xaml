@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dxe="http://schemas.devexpress.com/xamarin/2014/forms/editors"
+             xmlns:viewmodels="clr-namespace:IceSkateMobile.ViewModels"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:converters="clr-namespace:IceSkateMobile.Converters"
+             mc:Ignorable="d"
+             x:Class="IceSkateMobile.Views.LoginPage"
+             x:DataType="viewmodels:LoginViewModel"
+             Shell.NavBarIsVisible="False">
+    <ContentPage.BindingContext>
+        <viewmodels:LoginViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior 
+            EventName="Appearing"
+            Command="{Binding PageAppearingCommand}"/>
+
+    </ContentPage.Behaviors>
+    <ContentPage.Resources>
+        <converters:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter" />
+        <converters:InvertBooleanConverter x:Key="InvertBooleanConverter" />
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout Padding="10,0,10,0" 
+                     VerticalOptions="Center"
+                     HorizontalOptions="FillAndExpand">
+            <Label HorizontalOptions="CenterAndExpand" 
+                   Text="Login" 
+                   FontSize="Title" 
+                   FontAttributes="Bold"/>
+            <dxe:TextEdit LabelText="Phone number"
+                          Keyboard="Telephone"
+                          Text="{Binding Phonenumber.Value}"
+                          LabelFontSize="Medium"
+                          HasError="{Binding Phonenumber.IsValid, Converter={StaticResource InvertBooleanConverter}}"
+                          ErrorText="{Binding Phonenumber.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                          BottomTextFontSize="Medium"
+                          StartIcon="icon_phone">
+                <dxe:TextEdit.Behaviors>
+                    <xct:EventToCommandBehavior
+							EventName="Unfocused"
+							Command="{Binding ValidatePhonenumberCommand}" />
+                    <xct:EventToCommandBehavior
+							EventName="TextChanged"
+							Command="{Binding ValidatePhonenumberCommand}" />
+                </dxe:TextEdit.Behaviors>
+            </dxe:TextEdit>
+            <dxe:PasswordEdit LabelText="Password" 
+                              Text="{Binding Password.Value}"
+                              LabelFontSize="Medium"
+                              HasError="{Binding Password.IsValid, Converter={StaticResource InvertBooleanConverter}}"
+                              ErrorText="{Binding Password.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                              BottomTextFontSize="Medium"
+                              StartIcon="icon_password">
+                <dxe:PasswordEdit.Behaviors>
+                    <xct:EventToCommandBehavior
+							EventName="Unfocused"
+							Command="{Binding ValidatePasswordCommand}" />
+                    <xct:EventToCommandBehavior
+							EventName="TextChanged"
+							Command="{Binding ValidatePasswordCommand}" />
+                </dxe:PasswordEdit.Behaviors>
+            </dxe:PasswordEdit>
+            <dxe:SimpleButton VerticalOptions="Center" 
+                              FontSize="Medium"
+                              Text="Login" 
+                              Command="{Binding LoginCommand}"/>
+            <Label HorizontalOptions="Center" 
+                   FontSize="Medium"
+                   Text="Not a member? Join us now"  
+                   Margin="0,10,0,0">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RegisterCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
